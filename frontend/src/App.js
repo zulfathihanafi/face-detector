@@ -29,7 +29,7 @@ function App() {
 
   const register = async () => {
     const embedding = await getEmbedding();
-    await fetch('http://localhost:4000/register', {
+    await fetch('https://vibeathon1.viewdns.net/v1/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, embedding })
@@ -39,7 +39,7 @@ function App() {
 
   const recognize = async () => {
     const embedding = await getEmbedding();
-    const res = await fetch('http://localhost:4000/recognize', {
+    const res = await fetch('https://vibeathon1.viewdns.net/v1/api/recognize', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ embedding })
