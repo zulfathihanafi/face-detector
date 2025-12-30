@@ -4,7 +4,7 @@ import * as faceapi from 'face-api.js';
 function App() {
   const videoRef = useRef();
   const [name, setName] = useState('');
-
+  const URL = 'https://vibeathon1.viewdns.net/v1/api';
   useEffect(() => {
     Promise.all([
       faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
@@ -29,7 +29,7 @@ function App() {
 
   const register = async () => {
     const embedding = await getEmbedding();
-    await fetch('https://vibeathon1.viewdns.net/v1/api/register', {
+    await fetch(`${URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, embedding })
@@ -39,7 +39,7 @@ function App() {
 
   const recognize = async () => {
     const embedding = await getEmbedding();
-    const res = await fetch('https://vibeathon1.viewdns.net/v1/api/recognize', {
+    const res = await fetch(`${URL}/recognize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ embedding })
