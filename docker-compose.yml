@@ -1,15 +1,25 @@
 version: "3.8"
 services:
-  backend:
-    build: ./backend
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - v1_frontend
+      - v1_backend
+
+  v1_backend:
+    build: ./v1_backend
     ports:
       - "4000:4000"
     volumes:
       - ./backend/faces.db:/app/faces.db
 
-  frontend:
-    build: ./frontend
+  v1_frontend:
+    build: ./v1_frontend
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      - v1-backend
