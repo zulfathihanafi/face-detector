@@ -16,7 +16,7 @@ services:
     expose:
       - "4000"
     volumes:
-      - ./backend/faces.db:/app/faces.db
+      - ./v1_backend/faces.db:/app/faces.db
 
   v1_frontend:
     build: ./v1_frontend
