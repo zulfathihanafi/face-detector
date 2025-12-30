@@ -7,9 +7,11 @@ services:
       - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./v1_frontend/build:/usr/share/nginx/v1:ro
+      # - ./v2_frontend/build:/usr/share/nginx/v2:ro
     depends_on:
-      - v1_frontend
       - v1_backend
+      # - v2_backend
 
   v1_backend:
     build: ./v1_backend
@@ -18,9 +20,21 @@ services:
     volumes:
       - ./v1_backend/faces.db:/app/faces.db
 
+  # v2_backend:
+  #   build: ./v2_backend
+  #   expose:
+  #     - "4000"
+  #   volumes:
+  #     - ./v2_backend/faces.db:/app/faces.db
+
   v1_frontend:
     build: ./v1_frontend
-    expose:
-      - "3000"
+    command: ["echo", "v1 built"]  # frontend build only
     depends_on:
       - v1_backend
+
+  # v2_frontend:
+  #   build: ./v2_frontend
+  #   command: ["echo", "v2 built"]  # frontend build only
+  #   depends_on:
+  #     - v2_backend
