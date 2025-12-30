@@ -4,6 +4,7 @@ services:
     image: nginx:alpine
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
@@ -12,14 +13,14 @@ services:
 
   v1_backend:
     build: ./v1_backend
-    ports:
-      - "4000:4000"
+    expose:
+      - "4000"
     volumes:
       - ./backend/faces.db:/app/faces.db
 
   v1_frontend:
     build: ./v1_frontend
-    ports:
-      - "3000:80"
+    expose:
+      - "3000"
     depends_on:
-      - v1-backend
+      - v1_backend
