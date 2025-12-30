@@ -84,4 +84,4 @@ app.get('/users/delete/:id', (req, res) => {
   res.json({ status: 'deleted' });
 });
 
-app.listen(4000, () => console.log('Backend running on port 4000'));
+app.listen(3000, () => console.log('Backend running on port 4000'));

@@ -1,26 +1,30 @@
-version: "3.8"
+version: "3.9"
+
 services:
   nginx:
     image: nginx:alpine
+    container_name: reverse-proxy
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      - v1_backend
-      - v1_frontend  
+      - vite-v1
+      - react-v2
+      - api-v2
+    restart: unless-stopped
 
-  v1_backend:
-    build: ./v1_backend
-    expose:
-      - "4000"
-    volumes:
-      - ./v1_backend/faces.db:/app/faces.db
+  vite-v2:
+    build: ./v2_frontend
+    container_name: vite-v2
+    restart: unless-stopped
 
-  v1_frontend:
+  react-v1:
     build: ./v1_frontend
-    expose:
-      - "3000"
-    depends_on:
-      - v1_backend
+    container_name: react-v1
+    restart: unless-stopped
+
+  api-v1:
+    build: ./v1_backend
+    container_name: api-v1
+    restart: unless-stopped
